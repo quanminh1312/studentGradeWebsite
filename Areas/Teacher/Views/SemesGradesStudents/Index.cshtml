@@ -1,0 +1,186 @@
+﻿@model IEnumerable<doancoso.Models.SemesGradesStudent>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Teacher/Views/Shared/_Layout.cshtml";
+    List<SemesGradesStudent> penTrue = ViewBag.penTrue;
+    List<SemesGradesStudent> penFalse = ViewBag.penFalse;
+}
+<h1>Index</h1>
+<h2>Grading</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>GradeDatas</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in penFalse)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Grades
+                                </td>
+                                <td>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                @foreach (var grade in item.Grades)
+                                                {
+                                                    <th>
+                                                        @grade.Name
+                                                    </th>
+                                                }
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                @foreach (var grade in item.GradeNums)
+                                                {
+                                                    <td>
+                                                        @grade
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Total Grade
+                                </td>
+                                <td>
+                                    @item.TotalGrade
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Semester
+                                </td>
+                                <td>
+                                    @item.semester.Name
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Student
+                                </td>
+                                <td>
+                                    @item.student.Name
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Graded</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>GradeDatas</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in penTrue)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Grades
+                                </td>
+                                <td>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                @foreach (var grade in item.Grades)
+                                                {
+                                                    <th>
+                                                        @grade.Name
+                                                    </th>
+                                                }
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                @foreach (var grade in item.GradeNums)
+                                                {
+                                                    <td>
+                                                        @grade
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Total Grade
+                                </td>
+                                <td>
+                                    @item.TotalGrade
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Semester
+                                </td>
+                                <td>
+                                    @item.semester.Name
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Student
+                                </td>
+                                <td>
+                                    @item.student.Name
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Teacher
+                                </td>
+                                <td>
+                                    @if (item.teacher != null)
+                                    {
+                                        @item.teacher.Name
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

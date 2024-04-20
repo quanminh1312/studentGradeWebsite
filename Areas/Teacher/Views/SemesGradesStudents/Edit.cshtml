@@ -1,0 +1,50 @@
+﻿@model doancoso.Models.SemesGradesStudent
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Teacher/Views/Shared/_Layout.cshtml";
+    List<Grade> grades = ViewBag.grades;
+}
+
+<h1>Edit</h1>
+
+<h4>SemesGradesStudent</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            @{
+                List<int> gradeIds = new List<int>(grades.Select(s => s.Id));
+                List<int> gradeNums = new List<int>(grades.Select(s => 0));
+            }
+            @for (int i = 0; i < grades.Count; i++)
+            {
+                <div class="form-group">
+                    <label for=@gradeNums[i] class="control-label">@grades[i].Name (Max: @grades[i].maxGrade)</label>
+                    <label class="control-label">@grades[i].Description</label>
+                    <input type="hidden" name="gradeIds[@i]" value=@gradeIds[i] />
+                    <input for=@gradeNums[i] name="gradeNums[@i]" class="form-control" type="number" min="0" max="@grades[i].maxGrade" required value="@Model.GradeNums[i]"/>
+                    <span validation-for=@gradeNums[i] class="text-danger"></span>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="semester" class="control-label"></label>
+                <label class="form-control">@Model.semester!.Name</label>
+                <span asp-validation-for="SemesterId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
